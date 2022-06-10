@@ -1,4 +1,4 @@
-import { Lightning, Router } from "@lightningjs/sdk";
+import { Lightning } from "@lightningjs/sdk";
 import { MovieList } from "../components/MovieList";
 
 export class Home extends Lightning.Component {

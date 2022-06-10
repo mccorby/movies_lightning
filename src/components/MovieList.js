@@ -41,7 +41,8 @@ export class MovieList extends Lightning.Component {
             this.movieIds.push(aMovie.id);
             return {
                 type: Movie,
-                movie: aMovie
+                movie: aMovie,
+                isRec: this.isRec,
             }
         })
 
@@ -53,6 +54,9 @@ export class MovieList extends Lightning.Component {
 
     clear() {
         this.hOffset = 500;
+        if (this.isRec) {
+            this.hOffset = 100;
+        }
         this.nextPage = 0;
         this.totalPages = 0;
         this.index = 0;
@@ -64,6 +68,7 @@ export class MovieList extends Lightning.Component {
     }
 
     _init() {
+        console.log('MovieList _init. isRec? ' + this.isRec);
         this.clear();
         if (!this.isRec) {
             console.log('IsRec? ' + this.isRec);
@@ -106,7 +111,6 @@ export class MovieList extends Lightning.Component {
     }
 
     _getFocused() {
-        console.log('MovieList getFocused' + this.getActiveItem());
         return this.getActiveItem();
     }
 }

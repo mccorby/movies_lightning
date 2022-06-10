@@ -25,15 +25,24 @@ export class Movie extends Lightning.Component {
     }
 
     _init() {
+        console.log('Movie _init. isRec? ' + this.isRec);
+        let imageSize = 'w500';
+        let fontSize = 64;
+        if (this.isRec) {
+            imageSize = 'w92';
+            fontSize = 18;
+        }
         this.tag('Image').patch({
-            src: 'https://image.tmdb.org/t/p/w500/' + this.movie.poster_path
+            src: 'https://image.tmdb.org/t/p/' + imageSize + this.movie.poster_path
         })
         this.tag('Title').patch({
             text: {
-                text: this.movie.title
+                text: this.movie.title,
+                fontSize: fontSize,
             }
-        })
+        });
     }
+
 
     _focus() {
         console.log('Movie focus');

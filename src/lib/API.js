@@ -7,8 +7,8 @@ const getMovies = async (page) => {
     return results.json();
 }
 
-const getConfiguration = async (url) => {
-    const results = await fetch(url);
+const getConfiguration = async () => {
+    const results = await fetch(baseUrl + 'configuration?' + apiKey);
     return results.json();
 }
 

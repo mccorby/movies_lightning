@@ -48,8 +48,6 @@ export class MovieDetails extends Lightning.Component {
                     }
                 },
                 Recommendations: {
-                    h: 50,
-                    w: 50,
                     type: MovieList,
                     isRec: true,
                 }
