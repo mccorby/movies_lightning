@@ -7,6 +7,11 @@ const getMovies = async (page) => {
     return results.json();
 }
 
+const getPopular = async (page) => {
+    const results = await fetch(baseUrl + 'movie/popular?' + apiKey);
+    return results.json();
+}
+
 const getConfiguration = async () => {
     const results = await fetch(baseUrl + 'configuration?' + apiKey);
     return results.json();
@@ -25,4 +30,4 @@ const getRecommendations = async (movieId, page) => {
     return results.json();
 }
 
-export { getMovies, getConfiguration, getMovie, getRecommendations }
+export { getMovies, getConfiguration, getMovie, getRecommendations, getPopular }
