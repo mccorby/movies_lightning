@@ -1,6 +1,7 @@
 import { Lightning } from "@lightningjs/sdk";
 import { getMovie, getRecommendations } from "../lib/API";
 import { Movie } from "../components/Movie";
+import { MovieList } from "../components/MovieList";
 
 export class MovieDetails extends Lightning.Component {
 
@@ -47,22 +48,25 @@ export class MovieDetails extends Lightning.Component {
                     }
                 },
                 Recommendations: {
-                    flex: {
-                        direction: 'row',
-                        padding: 20,
-                    }
+                    h: 50,
+                    w: 50,
+                    type: MovieList,
+                    isRec: true,
                 }
             }
         }
     }
 
     set params(args) {
+        console.log('Setting params ' + args);
         this.loadMovie(args.movieId);
     }
 
     async loadMovie(movieId) {
         let movie = await getMovie(movieId);
-        this.loadRecommendations(movieId, 1);
+        this.tag('Recommendations').clear();
+        this.tag('Recommendations').loadMovies(movieId, 1);
+
         this.tag('Image').patch({
             src: 'https://image.tmdb.org/t/p/w500/' + movie.poster_path,
 
@@ -86,51 +90,8 @@ export class MovieDetails extends Lightning.Component {
         })
     }
 
-    async loadRecommendations(movieId, page) {
-        console.log('Loading data')
-        let data = await getRecommendations(movieId, page);
-        if (this.nextPage < data.total_pages) {
-            this.nextPage = data.page + 1;
-        }
-        this.totalPages = data.total_pages;
 
-        let movies = data.results.map(aMovie => {
-            this.movieIds.push(aMovie.id);
-            return {
-                type: Movie,
-                movie: aMovie
-            }
-        })
-
-        let tempChildren = this.tag('Recommendations').children;
-        this.tag('Recommendations').patch({
-            children: tempChildren.concat(movies)
-        })
-    }
-
-    _handleRight() {
-        this.loadMovies(this.nextPage);
-        this.tag('Recommendations').patch({
-            smooth: {
-                x: this.tag('Recommendations').x - this.hOffset
-            }
-        })
-        let maxIdx = this.tag('Recommendations').children.length - 1;
-        if (this.index < maxIdx) {
-            this.index++;
-        }
-    }
-
-    _handleLeft() {
-        if (this.tag('Recommendations').x < 0) {
-            this.tag('Recommendations').patch({
-                smooth: {
-                    x: this.tag('Recommendations').x + this.hOffset
-                }
-            })
-        }
-        if (this.index > 0) {
-            this.index--;
-        }
+    _getFocused() {
+        return this.tag('Recommendations');
     }
 }

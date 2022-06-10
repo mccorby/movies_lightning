@@ -6,6 +6,7 @@ export class Movie extends Lightning.Component {
         return {
             rect: true,
             color: 0xff000000,
+            alpha: 0.5,
             flex: {
                 direction: 'column',
                 padding: 20,
@@ -24,7 +25,6 @@ export class Movie extends Lightning.Component {
     }
 
     _init() {
-        console.log(this.movie)
         this.tag('Image').patch({
             src: 'https://image.tmdb.org/t/p/w500/' + this.movie.poster_path
         })
@@ -32,6 +32,20 @@ export class Movie extends Lightning.Component {
             text: {
                 text: this.movie.title
             }
+        })
+    }
+
+    _focus() {
+        console.log('Movie focus');
+        this.patch({
+            alpha: 1.0,
+        })
+    }
+
+    _unfocus() {
+        console.log('Movie unfocus');
+        this.patch({
+            alpha: 0.5,
         })
     }
 }

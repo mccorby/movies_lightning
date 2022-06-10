@@ -17,7 +17,8 @@ export default {
         },
         {
             path: 'home',
-            component: Home
+            component: Home,
+            widgets: ['MovieList']
         },
         {
             path: 'movie/:movieId',

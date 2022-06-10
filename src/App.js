@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-import { Lightning, Utils, Router } from '@lightningjs/sdk'
+import { Utils, Router } from '@lightningjs/sdk'
 import { default as routes } from './lib/routes'
 
 export default class App extends Router.App {
@@ -31,7 +31,7 @@ export default class App extends Router.App {
 
   static _template() {
     return {
-      ...super._template()
+      ...super._template(),
     }
   }
 }

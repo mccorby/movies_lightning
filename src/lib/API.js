@@ -19,7 +19,7 @@ const getMovie = async (movieId) => {
 
 const getRecommendations = async (movieId, page) => {
     const results = await fetch(
-        baseUrl + 'movie/' + movieId + '/recommendations/' + '?' + apiKey
+        baseUrl + 'movie/' + movieId + '/recommendations' + '?' + apiKey
         + '&page=' + page
     )
     return results.json();
